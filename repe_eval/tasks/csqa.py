@@ -7,7 +7,10 @@ def csqa_dataset(ntrain=7, seed=5):
     random.seed(seed)
     np.random.seed(seed)
     
-    template_str = "Based on commonsense reasoning, consider the plausibility of the answer to the following question:\nQuestion: {question}\nAnswer: {answer}.\nThe probability of the answer being plausible is "
+    template_str = "Based on commonsense reasoning, consider the plausibility of the answer to the following question:\n" \
+    "Question: {question}\n" \
+    "Answer: {answer}.\n" \
+    "The probability of the answer being plausible is "
 
     def format_samples(df, idx, train_set=False):
         prompts = []
@@ -39,7 +42,7 @@ def csqa_dataset(ntrain=7, seed=5):
             labels.append(label)
         return prompts, labels
 
-    dataset = load_dataset("commonsense_qa")
+    dataset = load_dataset("/home2/yhn/data/datasets/commonsense_qa")
     train_df = dataset['train'].shuffle(seed=seed).to_pandas()
     test_df = dataset['validation'].to_pandas()
     val_df = dataset['train'].to_pandas()[:len(test_df)]

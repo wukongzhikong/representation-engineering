@@ -37,7 +37,7 @@ def load_tqa_primer_shots(template_str, seed=0):
     return paired_data, labels
 
 def load_tqa_mc1(template_str):
-    test_dataset = load_dataset('truthful_qa', 'multiple_choice')['validation']
+    test_dataset = load_dataset('/home2/yhn/data/datasets/truthful_qa', 'multiple_choice')['validation']
 
     grouped_test_data = []
     labels = []
@@ -49,7 +49,10 @@ def load_tqa_mc1(template_str):
     return grouped_test_data, labels
 
 def tqa_dataset(ntrain=0, seed=0):
-    template_str = "Consider the amount of truthfulness in the following answer.\n\nQuestion: {q}\nAnswer: {a}\n\nThe amount of truthfulness in the answer is "
+    template_str = "Consider the amount of truthfulness in the following answer.\n\n" \
+    "Question: {q}\n" \
+    "Answer: {a}\n\n" \
+    "The amount of truthfulness in the answer is "
     train_data, train_labels = load_tqa_primer_shots(template_str, seed)
     
     test_data, test_labels = load_tqa_mc1(template_str)

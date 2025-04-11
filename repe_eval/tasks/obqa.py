@@ -5,7 +5,9 @@ from .utils import shuffle_all_train_choices
 
 def openbookqa_dataset(ntrain=10, seed=3):
 
-    template_str = "Consider the correctness of the following fact:\nFact: {question} {answer}.\nThe probability of the fact being correct is "
+    template_str = "Consider the correctness of the following fact:\n" \
+    "Fact: {question} {answer}.\n" \
+    "The probability of the fact being correct is "
     
     def format_samples(df, idx):
         prompts = []
@@ -35,7 +37,7 @@ def openbookqa_dataset(ntrain=10, seed=3):
             labels.append(label)
         return prompts, labels
     
-    dataset = load_dataset("openbookqa")
+    dataset = load_dataset("/home2/yhn/data/datasets/openbookqa")
     train_df = dataset['train'].shuffle(seed=seed).to_pandas()
     test_df = dataset['test'].to_pandas()
     val_df = dataset['validation'].to_pandas()

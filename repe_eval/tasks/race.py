@@ -13,13 +13,17 @@ def _collate_data(set):
         def __init__(self, f): self.f = f
         def __rrshift__(self, other): return list(map(self.f, other))
     r = collections.defaultdict(list)
-    for item in load_dataset(path="race", name="high")[set]: r[item["article"]].append(item)
+    for item in load_dataset(path="/home2/yhn/data/datasets/race", name="high")[set]: r[item["article"]].append(item)
     res = list(r.values() >> each(lambda x: {"article": x[0]["article"], "problems": x >> each(lambda y: {"question": y["question"], "answer": y["answer"], "options": y["options"]})}))
     return res
 
 def race_dataset(ntrain=3, seed=0):
     random.seed(seed)
-    template_str = "Consider the correctness of the answer to the following question based on the article:\n\nArticle: {context}\n\nQuestion: {question}\nAnswer: {answer}\nThe probability of the answer being correct is "
+    template_str = "Consider the correctness of the answer to the following question based on the article:\n\n" \
+    "Article: {context}\n\n" \
+    "Question: {question}\n" \
+    "Answer: {answer}\n" \
+    "The probability of the answer being correct is "
     
     letter_to_num = {"A": 0, "B": 1, "C": 2, "D": 3}
     def format_samples(df, idx):

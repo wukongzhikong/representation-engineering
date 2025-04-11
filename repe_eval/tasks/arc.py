@@ -3,7 +3,10 @@ import numpy as np
 from .utils import shuffle_all_train_choices
 
 def arc_dataset(config, ntrain=25, seed=1):
-    template_str = "Consider the correctness of the answer to the following question:\nQuestion: {question}\nAnswer: {answer}.\nThe probability the answer being correct is "
+    template_str = "Consider the correctness of the answer to the following question:\n" \
+    "Question: {question}\n" \
+    "Answer: {answer}.\n" \
+    "The probability the answer being correct is "
 
     def clean_answer_s(s):
         return s[:-1] if s[-1] == "." else s
@@ -36,7 +39,7 @@ def arc_dataset(config, ntrain=25, seed=1):
             labels.append(label)
         return prompts, labels
 
-    dataset = load_dataset("ai2_arc", config)
+    dataset = load_dataset("/home2/yhn/data/datasets/ai2_arc", config)
     train_df = dataset['train'].filter(_keep_4_options_row).shuffle(seed=seed).to_pandas()
     test_df = dataset['test'].to_pandas()
     val_df = dataset['validation'].to_pandas()
