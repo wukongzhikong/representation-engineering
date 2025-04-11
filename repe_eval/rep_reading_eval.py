@@ -20,7 +20,8 @@ def main(
         batch_size = 8,
         seed=0,
 ):
-    print("model_name_or_path", model_name_or_path)
+    print("model_name_or_path:", model_name_or_path)
+    print('task:', task)
     model = AutoModelForCausalLM.from_pretrained(model_name_or_path, torch_dtype=torch.bfloat16, device_map="auto")
     use_fast_tokenizer = "LlamaForCausalLM" not in model.config.architectures
     tokenizer = AutoTokenizer.from_pretrained(model_name_or_path, use_fast=use_fast_tokenizer, padding_side="left", legacy=False)
